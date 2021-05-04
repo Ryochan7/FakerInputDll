@@ -51,7 +51,6 @@ typedef struct _FAKERINPUT_KEYBOARD_REPORT
 
 } FakerInputKeyboardReport;
 
-#pragma pack(1)
 typedef struct _FAKERINPUT_MULTIMEDIA_REPORT
 {
     BYTE        ReportID;
@@ -61,7 +60,6 @@ typedef struct _FAKERINPUT_MULTIMEDIA_REPORT
     BYTE        ExtraKeys;
 
 } FakerInputMultimediaReport;
-#pragma pack()
 
 //
 // Relative mouse specific report information
