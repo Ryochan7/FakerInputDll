@@ -10,14 +10,14 @@
 
 #define CONTROL_REPORT_SIZE 0x41
 
-typedef struct _VMULTI_CONTROL_REPORT_HEADER
+typedef struct _FAKERINPUT_CONTROL_REPORT_HEADER
 {
 
     BYTE        ReportID;
 
     BYTE        ReportLength;
 
-} VMultiControlReportHeader;
+} FakerInputControlReportHeader;
 
 //
 // Keyboard specific report infomation
@@ -34,7 +34,7 @@ typedef struct _VMULTI_CONTROL_REPORT_HEADER
 
 #define KBD_KEY_CODES        6
 
-typedef struct _VMULTI_KEYBOARD_REPORT
+typedef struct _FAKERINPUT_KEYBOARD_REPORT
 {
 
     BYTE      ReportID;
@@ -49,10 +49,10 @@ typedef struct _VMULTI_KEYBOARD_REPORT
     // for a list of key codes
     BYTE      KeyCodes[KBD_KEY_CODES];
 
-} VMultiKeyboardReport;
+} FakerInputKeyboardReport;
 
 #pragma pack(1)
-typedef struct _VMULTI_MULTIMEDIA_REPORT
+typedef struct _FAKERINPUT_MULTIMEDIA_REPORT
 {
     BYTE        ReportID;
 
@@ -60,7 +60,7 @@ typedef struct _VMULTI_MULTIMEDIA_REPORT
 
     BYTE        ExtraKeys;
 
-} VMultiMultimediaReport;
+} FakerInputMultimediaReport;
 #pragma pack()
 
 //
@@ -70,7 +70,7 @@ typedef struct _VMULTI_MULTIMEDIA_REPORT
 #define RELATIVE_MOUSE_MIN_COORDINATE   -32767
 #define RELATIVE_MOUSE_MAX_COORDINATE   32767
 
-typedef struct _VMULTI_RELATIVE_MOUSE_REPORT
+typedef struct _FAKERINPUT_RELATIVE_MOUSE_REPORT
 {
 
     BYTE        ReportID;
@@ -85,6 +85,6 @@ typedef struct _VMULTI_RELATIVE_MOUSE_REPORT
 
     BYTE        HWheelPosition;
 
-} VMultiRelativeMouseReport;
+} FakerInputRelativeMouseReport;
 
 #endif // FAKERINPUTCOMMON_H

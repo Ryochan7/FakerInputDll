@@ -100,22 +100,22 @@ void fakerinput_disconnect(pfakerinput_client clientHandle)
 bool fakerinput_update_keyboard(pfakerinput_client clientHandle,
     BYTE shiftKeyFlags, BYTE keyCodes[KBD_KEY_CODES])
 {
-    VMultiControlReportHeader* pReport = NULL;
-    VMultiKeyboardReport* pKeyboardReport = NULL;
+    FakerInputControlReportHeader* pReport = NULL;
+    FakerInputKeyboardReport* pKeyboardReport = NULL;
 
     //
     // Set the report header
     //
 
-    pReport = (VMultiControlReportHeader*)clientHandle->controlReport;
+    pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
-    pReport->ReportLength = sizeof(VMultiKeyboardReport);
+    pReport->ReportLength = sizeof(FakerInputKeyboardReport);
 
     //
     // Set the input report
     //
 
-    pKeyboardReport = (VMultiKeyboardReport*)(clientHandle->controlReport + sizeof(VMultiControlReportHeader));
+    pKeyboardReport = (FakerInputKeyboardReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
     pKeyboardReport->ReportID = REPORTID_KEYBOARD;
     pKeyboardReport->ShiftKeyFlags = shiftKeyFlags;
     RtlCopyMemory(pKeyboardReport->KeyCodes, keyCodes, KBD_KEY_CODES);
@@ -127,22 +127,22 @@ bool fakerinput_update_keyboard(pfakerinput_client clientHandle,
 
 bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE multiKeys, BYTE extraKeys)
 {
-    VMultiControlReportHeader* pReport = NULL;
-    VMultiMultimediaReport* pKeyboardReport = NULL;
+    FakerInputControlReportHeader* pReport = NULL;
+    FakerInputMultimediaReport* pKeyboardReport = NULL;
 
     //
     // Set the report header
     //
 
-    pReport = (VMultiControlReportHeader*)clientHandle->controlReport;
+    pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
-    pReport->ReportLength = sizeof(VMultiMultimediaReport);
+    pReport->ReportLength = sizeof(FakerInputMultimediaReport);
 
     //
     // Set the input report
     //
 
-    pKeyboardReport = (VMultiMultimediaReport*)(clientHandle->controlReport + sizeof(VMultiControlReportHeader));
+    pKeyboardReport = (FakerInputMultimediaReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
     pKeyboardReport->ReportID = REPORTID_ENHANCED_KEY;
     pKeyboardReport->MultimediaKeys = multiKeys;
     pKeyboardReport->ExtraKeys = extraKeys;
@@ -154,10 +154,10 @@ bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE m
 bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE button,
     SHORT x, SHORT y, BYTE wheelPosition, BYTE hWheelPosition)
 {
-    VMultiControlReportHeader* pReport = NULL;
-    VMultiRelativeMouseReport* pMouseReport = NULL;
+    FakerInputControlReportHeader* pReport = NULL;
+    FakerInputRelativeMouseReport* pMouseReport = NULL;
 
-    if (CONTROL_REPORT_SIZE <= sizeof(VMultiControlReportHeader) + sizeof(VMultiRelativeMouseReport))
+    if (CONTROL_REPORT_SIZE <= sizeof(FakerInputControlReportHeader) + sizeof(FakerInputRelativeMouseReport))
     {
         return FALSE;
     }
@@ -166,15 +166,15 @@ bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE butt
     // Set the report header
     //
 
-    pReport = (VMultiControlReportHeader*)clientHandle->controlReport;
+    pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
-    pReport->ReportLength = sizeof(VMultiRelativeMouseReport);
+    pReport->ReportLength = sizeof(FakerInputRelativeMouseReport);
 
     //
     // Set the input report
     //
 
-    pMouseReport = (VMultiRelativeMouseReport*)(clientHandle->controlReport + sizeof(VMultiControlReportHeader));
+    pMouseReport = (FakerInputRelativeMouseReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
     pMouseReport->ReportID = REPORTID_RELATIVE_MOUSE;
     pMouseReport->Button = button;
     pMouseReport->XValue = x;

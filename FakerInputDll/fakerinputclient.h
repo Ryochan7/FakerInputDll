@@ -11,9 +11,7 @@ typedef struct _fakerinput_client_t* pfakerinput_client;
 #define FAKERINPUTLIB_API __declspec(dllimport)
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+EXTERN_C_START
 
     FAKERINPUTLIB_API pfakerinput_client fakerinput_alloc();
 
@@ -30,8 +28,6 @@ extern "C" {
     FAKERINPUTLIB_API bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE button,
         SHORT x, SHORT y, BYTE wheelPosition, BYTE hWheelPosition);
 
-#ifdef __cplusplus
-}
-#endif
+EXTERN_C_END
 
 #endif // FAKERINPUTCLIENT_H
