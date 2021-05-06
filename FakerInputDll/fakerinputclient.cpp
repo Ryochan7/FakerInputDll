@@ -106,7 +106,7 @@ bool fakerinput_update_keyboard(pfakerinput_client clientHandle,
     //
     // Set the report header
     //
-
+    ZeroMemory(clientHandle->controlReport, CONTROL_REPORT_SIZE);
     pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
     pReport->ReportLength = sizeof(FakerInputKeyboardReport);
@@ -134,6 +134,7 @@ bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE m
     // Set the report header
     //
 
+    ZeroMemory(clientHandle->controlReport, CONTROL_REPORT_SIZE);
     pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
     pReport->ReportLength = sizeof(FakerInputMultimediaReport);
@@ -154,6 +155,8 @@ bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE m
 bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHORT x, USHORT y,
     BYTE wheelPosition, BYTE hWheelPosition)
 {
+    UNREFERENCED_PARAMETER(hWheelPosition);
+
     FakerInputControlReportHeader* pReport = NULL;
     FakerInputMouseReport* pMouseReport = NULL;
 
@@ -162,6 +165,7 @@ bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHOR
         return FALSE;
     }
 
+    ZeroMemory(clientHandle->controlReport, CONTROL_REPORT_SIZE);
     //
     // Set the report header
     //
@@ -180,7 +184,7 @@ bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHOR
     pMouseReport->XValue = x;
     pMouseReport->YValue = y;
     pMouseReport->WheelPosition = wheelPosition;
-    pMouseReport->HWheelPosition = hWheelPosition;
+    //pMouseReport->HWheelPosition = hWheelPosition;
 
     // Send the report
     return HidOutput(FALSE, clientHandle->hControl, (PCHAR)clientHandle->controlReport, CONTROL_REPORT_SIZE);
@@ -197,6 +201,7 @@ bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE butt
         return FALSE;
     }
 
+    ZeroMemory(clientHandle->controlReport, CONTROL_REPORT_SIZE);
     //
     // Set the report header
     //

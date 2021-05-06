@@ -100,7 +100,7 @@ typedef struct _FAKERINPUT_MOUSE_REPORT
 
     BYTE        WheelPosition;
 
-    BYTE        HWheelPosition;
+    //BYTE        HWheelPosition;
 
 } FakerInputMouseReport;
 
