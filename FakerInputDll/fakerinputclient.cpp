@@ -152,15 +152,15 @@ bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE m
     return HidOutput(FALSE, clientHandle->hControl, (PCHAR)clientHandle->controlReport, CONTROL_REPORT_SIZE);
 }
 
-bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHORT x, USHORT y,
+bool fakerinput_update_absolute_mouse(pfakerinput_client clientHandle, BYTE button, USHORT x, USHORT y,
     BYTE wheelPosition, BYTE hWheelPosition)
 {
     UNREFERENCED_PARAMETER(hWheelPosition);
 
     FakerInputControlReportHeader* pReport = NULL;
-    FakerInputMouseReport* pMouseReport = NULL;
+    FakerInputAbsMouseReport* pMouseReport = NULL;
 
-    if (CONTROL_REPORT_SIZE <= sizeof(FakerInputControlReportHeader) + sizeof(FakerInputMouseReport))
+    if (CONTROL_REPORT_SIZE <= sizeof(FakerInputControlReportHeader) + sizeof(FakerInputAbsMouseReport))
     {
         return FALSE;
     }
@@ -172,14 +172,14 @@ bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHOR
 
     pReport = (FakerInputControlReportHeader*)clientHandle->controlReport;
     pReport->ReportID = REPORTID_CONTROL;
-    pReport->ReportLength = sizeof(FakerInputMouseReport);
+    pReport->ReportLength = sizeof(FakerInputAbsMouseReport);
 
     //
     // Set the input report
     //
 
-    pMouseReport = (FakerInputMouseReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
-    pMouseReport->ReportID = REPORTID_MOUSE;
+    pMouseReport = (FakerInputAbsMouseReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
+    pMouseReport->ReportID = REPORTID_ABSOLUTE_MOUSE;
     pMouseReport->Button = button;
     pMouseReport->XValue = x;
     pMouseReport->YValue = y;

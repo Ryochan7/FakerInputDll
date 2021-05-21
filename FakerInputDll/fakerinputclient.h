@@ -25,7 +25,7 @@ EXTERN_C_START
 
     FAKERINPUTLIB_API bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE multiKeys, BYTE extraKeys);
 
-    FAKERINPUTLIB_API bool fakerinput_update_mouse(pfakerinput_client clientHandle, BYTE button, USHORT x, USHORT y,
+    FAKERINPUTLIB_API bool fakerinput_update_absolute_mouse(pfakerinput_client clientHandle, BYTE button, USHORT x, USHORT y,
         BYTE wheelPosition, BYTE hWheelPosition);
 
     FAKERINPUTLIB_API bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE button,
