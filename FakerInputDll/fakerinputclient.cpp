@@ -145,8 +145,10 @@ bool fakerinput_update_keyboard_enhanced(pfakerinput_client clientHandle, BYTE m
 
     pKeyboardReport = (FakerInputMultimediaReport*)(clientHandle->controlReport + sizeof(FakerInputControlReportHeader));
     pKeyboardReport->ReportID = REPORTID_ENHANCED_KEY;
-    pKeyboardReport->MultimediaKeys = multiKeys;
-    pKeyboardReport->ExtraKeys = extraKeys;
+    //RtlCopyMemory(&pKeyboardReport->MultimediaKeys0, &multiKeys, 1);
+    pKeyboardReport->MultimediaKeys0 = multiKeys;
+    pKeyboardReport->MultimediaKeys1 = extraKeys;
+    pKeyboardReport->MultimediaKeys2 = (BYTE)0;
 
     // Send the report
     return HidOutput(FALSE, clientHandle->hControl, (PCHAR)clientHandle->controlReport, CONTROL_REPORT_SIZE);
