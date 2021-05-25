@@ -12,6 +12,7 @@
 typedef struct _fakerinput_client_t
 {
     HANDLE hControl;
+    HANDLE hMethodEndpoint;
     BYTE controlReport[CONTROL_REPORT_SIZE];
 } fakerinput_client_t;
 
@@ -75,6 +76,28 @@ bool fakerinput_connect(pfakerinput_client clientHandle)
         clientHandle->hControl == nullptr)
         return false;
 
+    clientHandle->hMethodEndpoint = SearchMatchingHwID(0xff00, 0x0002);
+    if (clientHandle->hMethodEndpoint == INVALID_HANDLE_VALUE ||
+        clientHandle->hMethodEndpoint == nullptr)
+    {
+        fakerinput_disconnect(clientHandle);
+        return false;
+    }
+
+    /*BYTE testBuffer[65] = { 0 };
+    ZeroMemory(testBuffer, CONTROL_REPORT_SIZE);
+    FakerInputMethodReportHeader* shit = (FakerInputMethodReportHeader*)testBuffer;
+    shit->ReportID = REPORTID_METHOD;
+    shit->MethodEndpointID = FAKERINPUT_CHECK_API_VERSION;
+    shit->ReportLength = sizeof(FakerInputAPIVersionReport);
+
+    FakerInputAPIVersionReport* versionReport = (FakerInputAPIVersionReport*)(testBuffer + sizeof(FakerInputMethodReportHeader));
+    versionReport->ReportID = FAKERINPUT_CHECK_API_VERSION;
+    versionReport->ApiVersion = FAKERINPUT_API_VERSION;
+
+    bool testStatus = HidOutput(FALSE, clientHandle->hMethodEndpoint, (PCHAR)testBuffer, CONTROL_REPORT_SIZE);
+    DWORD whyme = GetLastError();*/
+
     // Set the buffer count to 10 on the control HID
     /*if (!HidD_SetNumInputBuffers(clientHandle->hControl, 10))
     {
@@ -94,6 +117,12 @@ void fakerinput_disconnect(pfakerinput_client clientHandle)
     {
         CloseHandle(clientHandle->hControl);
         clientHandle->hControl = nullptr;
+    }
+
+    if (clientHandle->hMethodEndpoint != nullptr)
+    {
+        CloseHandle(clientHandle->hMethodEndpoint);
+        clientHandle->hMethodEndpoint = nullptr;
     }
 }
 
