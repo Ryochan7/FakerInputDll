@@ -86,16 +86,19 @@ bool fakerinput_connect(pfakerinput_client clientHandle)
 
     /*BYTE testBuffer[65] = { 0 };
     ZeroMemory(testBuffer, CONTROL_REPORT_SIZE);
-    FakerInputMethodReportHeader* shit = (FakerInputMethodReportHeader*)testBuffer;
-    shit->ReportID = REPORTID_METHOD;
-    shit->MethodEndpointID = FAKERINPUT_CHECK_API_VERSION;
-    shit->ReportLength = sizeof(FakerInputAPIVersionReport);
+    testBuffer[0] = REPORTID_API_VERSION_FEATURE_ID;*/
+    /*FakerInputMethodReportHeader* methodReport = (FakerInputMethodReportHeader*)testBuffer;
+    methodReport->ReportID = REPORTID_METHOD;
+    methodReport->MethodEndpointID = FAKERINPUT_CHECK_API_VERSION;
+    methodReport->ReportLength = sizeof(FakerInputAPIVersionReport);
 
     FakerInputAPIVersionReport* versionReport = (FakerInputAPIVersionReport*)(testBuffer + sizeof(FakerInputMethodReportHeader));
     versionReport->ReportID = FAKERINPUT_CHECK_API_VERSION;
     versionReport->ApiVersion = FAKERINPUT_API_VERSION;
 
-    bool testStatus = HidOutput(FALSE, clientHandle->hMethodEndpoint, (PCHAR)testBuffer, CONTROL_REPORT_SIZE);
+    bool testStatus = HidOutput(FALSE, clientHandle->hMethodEndpoint, (PCHAR)testBuffer, CONTROL_REPORT_SIZE);*/
+
+    /*bool testStatus = HidD_GetFeature(clientHandle->hMethodEndpoint, (PCHAR)testBuffer, CONTROL_REPORT_SIZE);
     DWORD whyme = GetLastError();*/
 
     // Set the buffer count to 10 on the control HID
