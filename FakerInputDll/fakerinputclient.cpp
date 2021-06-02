@@ -20,8 +20,8 @@ typedef struct _fakerinput_client_t
 // These are the device attributes returned by the mini driver in response
 // to IOCTL_HID_GET_DEVICE_ATTRIBUTES.
 //
-#define FAKERINPUT_PID 0xFEED
-#define FAKERINPUT_VID 0xDEED
+#define FAKERINPUT_VID 0xFE0F
+#define FAKERINPUT_PID 0x00FF
 #define FAKERINPUT_VERSION 0x0101
 
 //
