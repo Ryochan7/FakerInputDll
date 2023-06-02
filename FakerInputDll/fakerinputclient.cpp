@@ -392,7 +392,7 @@ OpenDeviceInterface(
 
     file = CreateFile(deviceInterfaceDetailData->DevicePath,
         GENERIC_READ | GENERIC_WRITE,
-        FILE_SHARE_READ | FILE_SHARE_READ,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
         NULL, // no SECURITY_ATTRIBUTES structure
         OPEN_EXISTING, // No special create flags
         0, // No special attributes
