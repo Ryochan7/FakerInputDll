@@ -3,6 +3,8 @@
 
 #include "fakerinputcommon.h"
 
+#include <initguid.h>
+
 typedef struct _fakerinput_client_t* pfakerinput_client;
 
 #ifdef FAKERINPUTLIB_EXPORTS
@@ -32,5 +34,10 @@ EXTERN_C_START
         SHORT x, SHORT y, BYTE wheelPosition, BYTE hWheelPosition);
 
 EXTERN_C_END
+
+//// {ab67b0fa-d0f5-4f60-81f4-346e18fd0805}
+DEFINE_GUID(GUID_DEVINTERFACE_FakerInput,
+    0xab67b0fa, 0xd0f5, 0x4f60, 0x81, 0xf4, 0x34, 0x6e, 0x18, 0xfd, 0x08, 0x05);
+
 
 #endif // FAKERINPUTCLIENT_H

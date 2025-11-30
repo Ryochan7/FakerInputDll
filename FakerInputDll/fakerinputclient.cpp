@@ -282,7 +282,7 @@ SearchMatchingHwID(
     HidD_GetHidGuid(&hidguid);
 
     hardwareDeviceInfo =
-        SetupDiGetClassDevs((LPGUID)&hidguid,
+        SetupDiGetClassDevs((LPGUID)&GUID_DEVINTERFACE_FakerInput,
             NULL,
             NULL, // Define no
             (DIGCF_PRESENT |
@@ -307,7 +307,7 @@ SearchMatchingHwID(
 
     for (i = 0; SetupDiEnumDeviceInterfaces(hardwareDeviceInfo,
         0, // No care about specific PDOs
-        (LPGUID)&hidguid,
+        (LPGUID)&GUID_DEVINTERFACE_FakerInput,
         i, //
         &deviceInterfaceData);
         i++)
