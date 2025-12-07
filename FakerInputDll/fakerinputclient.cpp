@@ -14,6 +14,8 @@ typedef struct _fakerinput_client_t
     HANDLE hControl;
     HANDLE hMethodEndpoint;
     BYTE controlReport[CONTROL_REPORT_SIZE];
+    BYTE featureReport[CONTROL_REPORT_SIZE];
+    UINT32 apiVersionNum;
 } fakerinput_client_t;
 
 //
@@ -265,6 +267,25 @@ bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE butt
 
     // Send the report
     return HidOutput(FALSE, clientHandle->hControl, (PCHAR)clientHandle->controlReport, CONTROL_REPORT_SIZE);
+}
+
+UINT32 fakerinput_versionAPINumber(pfakerinput_client clientHandle)
+{
+    UINT32 version = 0;
+
+    FakerInputAPIVersionFeature* pReport = nullptr;
+
+    ZeroMemory(clientHandle->featureReport, CONTROL_REPORT_SIZE);
+    pReport = (FakerInputAPIVersionFeature*)clientHandle->featureReport;
+    pReport->ReportId = REPORTID_API_VERSION_FEATURE_ID;
+
+    bool status = HidD_GetFeature(clientHandle->hMethodEndpoint, pReport, CONTROL_REPORT_SIZE);
+    if (status)
+    {
+        version = clientHandle->apiVersionNum = pReport->ApiVersion;
+    }
+
+    return version;
 }
 
 HANDLE

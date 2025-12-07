@@ -33,6 +33,8 @@ EXTERN_C_START
     FAKERINPUTLIB_API bool fakerinput_update_relative_mouse(pfakerinput_client clientHandle, BYTE button,
         SHORT x, SHORT y, BYTE wheelPosition, BYTE hWheelPosition);
 
+    FAKERINPUTLIB_API UINT32 fakerinput_versionAPINumber(pfakerinput_client clientHandle);
+
 EXTERN_C_END
 
 //// {ab67b0fa-d0f5-4f60-81f4-346e18fd0805}
