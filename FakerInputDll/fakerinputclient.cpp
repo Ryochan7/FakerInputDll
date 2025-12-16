@@ -16,6 +16,7 @@ typedef struct _fakerinput_client_t
     BYTE controlReport[CONTROL_REPORT_SIZE];
     BYTE featureReport[CONTROL_REPORT_SIZE];
     UINT32 apiVersionNum;
+    UINT32 driverVersionNum;
 } fakerinput_client_t;
 
 //
@@ -59,6 +60,8 @@ HidOutput(
     ULONG bufferSize
 );
 
+void _init_fakerinput_driverVersionNumber(pfakerinput_client clientHandle);
+
 
 pfakerinput_client fakerinput_alloc()
 {
@@ -77,6 +80,8 @@ bool fakerinput_connect(pfakerinput_client clientHandle)
     if (clientHandle->hControl == INVALID_HANDLE_VALUE ||
         clientHandle->hControl == nullptr)
         return false;
+
+    _init_fakerinput_driverVersionNumber(clientHandle);
 
     clientHandle->hMethodEndpoint = SearchMatchingHwID(0xff00, 0x0002);
     if (clientHandle->hMethodEndpoint == INVALID_HANDLE_VALUE ||
@@ -286,6 +291,22 @@ UINT32 fakerinput_versionAPINumber(pfakerinput_client clientHandle)
     }
 
     return version;
+}
+
+void _init_fakerinput_driverVersionNumber(pfakerinput_client clientHandle)
+{
+    HANDLE file = clientHandle->hControl;
+    HIDD_ATTRIBUTES Attributes; // The Attributes of this hid device.
+
+    if (HidD_GetAttributes(file, &Attributes))
+    {
+        clientHandle->driverVersionNum = Attributes.VersionNumber;
+    }
+}
+
+UINT32 fakerinput_driverVersionNumber(pfakerinput_client clientHandle)
+{
+    return clientHandle->driverVersionNum;
 }
 
 HANDLE
