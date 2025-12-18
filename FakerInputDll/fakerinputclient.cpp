@@ -25,7 +25,7 @@ typedef struct _fakerinput_client_t
 //
 #define FAKERINPUT_VID 0xFE0F
 #define FAKERINPUT_PID 0x00FF
-#define FAKERINPUT_VERSION 0x0001
+#define FAKERINPUT_VERSION 0x0002
 
 //
 // Function prototypes
